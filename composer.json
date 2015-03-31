@@ -9,7 +9,7 @@
   "license": "GPL-2.0+",
   "authors": [{
     "name": "Chris Albrecht",
-    "email": "chris.albrecht@lullabot.com"
+    "email": "chris@lullabot.com"
   }],
   "keywords": ["drush","database","sync"],
   "homepage": "https://github.com/KeyboardCowboy/drush-sync_tools"
