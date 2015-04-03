@@ -34,11 +34,15 @@ function drush_sync_tools_reset() {
     $default_options['config'] = $config;
   }
 
-  drush_shell_exec('git pull');
-  foreach (drush_shell_exec_output() as $msg) {
-    drush_print($msg);
+  // Pull the latest changes from the git branch
+  if (!drush_get_option('skip-git')) {
+    drush_shell_exec('git pull');
+    foreach (drush_shell_exec_output() as $msg) {
+      drush_print($msg);
+    }
   }
 
+  // Run the commands
   foreach ($commands as $command) {
     $command += array('alias' => '@self', 'arguments' => array(), 'options' => array());
     $command['options'] += $default_options;
