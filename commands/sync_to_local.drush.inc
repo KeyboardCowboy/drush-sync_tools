@@ -6,7 +6,7 @@
 /**
  * Command callback.
  */
-function drush_sync_to_local($source) {
+function drush_sync_tools_sync_to_local($source) {
   // Sync the DB
   $commands[] = array(
     'command' => 'sql-sync',

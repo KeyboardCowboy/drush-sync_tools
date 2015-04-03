@@ -6,7 +6,7 @@
 /**
  * Command callback.
  */
-function drush_sync_reset() {
+function drush_sync_tools_reset() {
   $commands[] = array(
     'command' => 'rr',
     'options' => array('yes' => TRUE),
