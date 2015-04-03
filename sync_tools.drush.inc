@@ -12,6 +12,9 @@ function sync_tools_drush_command() {
     'arguments' => array(
       'source-alias' => 'The source alias to fetch the DB from.',
     ),
+    'options' => array(
+      'skip-git' => 'Do not execute a git pull before running the reset commands.',
+    ),
     'required-arguments' => TRUE,
     'aliases' => array('stl'),
   );
@@ -19,6 +22,9 @@ function sync_tools_drush_command() {
   $items['reset'] = array(
     'description' => 'Batch command to run DB updates, revert features, clear caches.',
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'options' => array(
+      'skip-git' => 'Do not execute a git pull before running the reset commands.',
+    ),
   );
 
   return $items;

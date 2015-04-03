@@ -45,9 +45,12 @@ function drush_sync_tools_sync_to_local($source) {
     $default_options['config'] = $config;
   }
 
-  drush_shell_exec('git pull');
-  foreach (drush_shell_exec_output() as $msg) {
-    drush_print($msg);
+  // Pull the latest changes from the git branch
+  if (!drush_get_option('skip-git')) {
+    drush_shell_exec('git pull');
+    foreach (drush_shell_exec_output() as $msg) {
+      drush_print($msg);
+    }
   }
 
   foreach ($commands as $command) {
