@@ -8,7 +8,7 @@
  */
 function drush_sync_tools_sync_to_local($source) {
   // Sync the DB
-  $commands[] = array(
+  $commands['sql-sync'] = array(
     'command' => 'sql-sync',
     'arguments' => array('source' => $source, 'target' => '@self'),
     'options' => array(
@@ -20,21 +20,29 @@ function drush_sync_tools_sync_to_local($source) {
     ),
   );
 
+  // Allow the --no-cache option to be passed in for sql-sync
+  if (drush_get_option('no-cache', FALSE)) {
+    $commands['sql-sync']['options']['no-cache'] = TRUE;
+  }
+
   // Run the standard reset
-  $commands[] = array(
+  $commands['reset'] = array(
     'command' => 'reset',
+    'options' => array(
+      'no-revert' => drush_get_option('no-revert'),
+    ),
   );
 
   // Apply the local settings
   // Requires: drush-denver
-  $commands[] = array(
+  $commands['env'] = array(
     'command' => 'env',
     'arguments' => array('local'),
     'options' => array('yes' => TRUE),
   );
 
   // Clear all caches.
-  $commands[] = array(
+  $commands['cache-clear'] = array(
     'command' => 'cache-clear',
     'arguments' => array('all'),
   );

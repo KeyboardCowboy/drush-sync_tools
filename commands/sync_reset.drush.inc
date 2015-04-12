@@ -19,10 +19,14 @@ function drush_sync_tools_reset() {
     'command' => 'cache-clear',
     'arguments' => array('drush'),
   );
-  $commands[] = array(
-    'command' => 'features-revert-all',
-    'options' => array('yes' => TRUE),
-  );
+
+  if (!drush_get_option('no-revert', FALSE)) {
+    $commands[] = array(
+      'command' => 'features-revert-all',
+      'options' => array('yes' => TRUE),
+    );
+  }
+
   $commands[] = array(
     'command' => 'cache-clear',
     'arguments' => array('all'),

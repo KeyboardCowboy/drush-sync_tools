@@ -14,6 +14,8 @@ function sync_tools_drush_command() {
     ),
     'options' => array(
       'skip-git' => 'Do not execute a git pull before running the reset commands.',
+      'no-cache' => 'Ignore any cached versions of the database and do a fresh pull.',
+      'no-revert' => 'Do not revert features.',
     ),
     'required-arguments' => TRUE,
     'aliases' => array('stl'),
@@ -24,6 +26,7 @@ function sync_tools_drush_command() {
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
     'options' => array(
       'skip-git' => 'Do not execute a git pull before running the reset commands.',
+      'no-revert' => 'Do not revert features.',
     ),
   );
 
