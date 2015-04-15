@@ -7,6 +7,31 @@
  * Command callback.
  */
 function drush_sync_tools_sync_to_local($source) {
+  $response = NULL;
+
+  // Get information about the @self alias so we can ask the user to confirm.
+  list($site_list,) = drush_sitealias_resolve_sitespecs(array('@self'));
+  $self = reset($site_list);
+  drush_sitealias_add_db_settings($self);
+  $db = $self['databases']['default']['default']['database'];
+
+  // Report if unable to find a DB to sync into.
+  if (empty($db)) {
+    drush_set_error('STL-NODB', 'Either you are not within a Drupal site or the default database is not defined.');
+    return FALSE;
+  }
+
+  // Prompt the user to confirm before beginning.
+  while (!in_array($response, array('y','n'))) {
+    $response = drush_prompt("This will wipe out your local database '{$db}' and sync it from {$source}. Continue? (y/n)");
+  }
+
+  // Kick out
+  if ($response == 'n') {
+    drush_print('Aborting local sync.');
+    return;
+  }
+
   // Sync the DB
   $commands['sql-sync'] = array(
     'command' => 'sql-sync',
@@ -61,6 +86,7 @@ function drush_sync_tools_sync_to_local($source) {
     }
   }
 
+  // Run the commands.
   foreach ($commands as $command) {
     $command += array('alias' => '@self', 'arguments' => array(), 'options' => array());
     $command['options'] += $default_options;
