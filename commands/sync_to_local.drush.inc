@@ -39,7 +39,6 @@ function drush_sync_tools_sync_to_local($source) {
     'options' => array(
       'yes' => TRUE,
       'create-db' => TRUE,
-      'notify' => TRUE,
       'sanitize' => TRUE,
       'sanitize-email' => 'no',
     ),
