@@ -58,19 +58,13 @@ function drush_sync_tools_truncate_table($table_names) {
   drush_print_format($truncate, 'list');
 
   // Make sure the user is cool with this.
-  $num = count($truncate);
-  $conf = NULL;
-  while ($conf != 'n' && $conf != 'y') {
-    $conf = drush_prompt("You are about to truncate {$num} tables on {$db}. Continue?", 'y/n');
+  if (!drush_confirm(dt("You are about to truncate !num tables on !db. Continue?", array('!num' => count($truncate), '!db' => $db)))) {
+    return drush_user_abort();
   }
-
-  if ($conf == 'y') {
+  else {
     foreach ($truncate as $table) {
       db_query("TRUNCATE TABLE {{$table}}");
       drush_print(dt('Truncated @table', array('@table' => $table)));
     }
-  }
-  else {
-    drush_print(dt('Cancelled.'));
   }
 }
