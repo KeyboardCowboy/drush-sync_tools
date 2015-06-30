@@ -44,6 +44,10 @@ function drush_sync_tools_sync_to_local($source) {
     ),
   );
 
+  $commands['syncdb'] = array(
+
+  );
+
   // Allow the --no-cache option to be passed in for sql-sync
   if (drush_get_option('no-cache', FALSE)) {
     $commands['sql-sync']['options']['no-cache'] = TRUE;

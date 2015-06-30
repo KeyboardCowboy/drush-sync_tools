@@ -30,5 +30,15 @@ function sync_tools_drush_command() {
     ),
   );
 
+  $items['truncate-table'] = array(
+    'description' => 'Truncate one or a series of database tables.',
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_DATABASE,
+    'arguments' => array(
+      'tables' => 'A single table or comma separated list.  An asterisk (*) can be used as a wildcard.',
+    ),
+    'required-arguments' => TRUE,
+    'aliases' => array('tt'),
+  );
+
   return $items;
 }
