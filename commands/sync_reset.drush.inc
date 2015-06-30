@@ -26,6 +26,9 @@ function drush_sync_tools_reset() {
       'options' => array('yes' => TRUE),
     );
   }
+  else {
+    drush_print(dt('Skipping features revert.'));
+  }
 
   $commands[] = array(
     'command' => 'cache-clear',
